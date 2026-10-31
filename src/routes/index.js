@@ -12,11 +12,7 @@ const router = createRouter({
     },
     {
       path: "/personajes",
-      component: () => import("@/views/PersonajesView.vue")
-    },
-    {
-      path: "/detalle/:id",
-      component: () => import("@/views/DetalleView.vue")
+      component: () => import("@/views/MuseoView.vue")
     },
     {
       //https://router.vuejs.org/guide/essentials/dynamic-matching.html#Catch-all-404-Not-found-Route
