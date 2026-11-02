@@ -26,14 +26,21 @@ onMounted(cargar)
 </script>
 
 <template>
-<p v-if="cargando">Cargando...</p>
+  <p v-if="cargando" class="text-center py-8 text-white">Cargando...</p>
 
-  <div v-else-if="error">
-    <p>{{ error }}</p>
-    <button @click="cargar">Reintentar</button>
+  <div v-else-if="error" class="text-center py-8">
+    <p class="text-red-600 mb-2">{{ error }}</p>
+    <button @click="cargar" class="px-4 py-2 bg-blue-600 text-white rounded">Reintentar</button>
   </div>
 
-  <div v-else class="grid grid-cols-2 gap-4 md:grid-cols-4">
+  <div v-else class="container mx-auto px-2 py-2">
+    <h2 class="text-3xl text-center md:text-4xl font-bold text-white mb-6">
+      Museo de arte virtual
+    </h2>
+ <section
+class="columns-2 gap-x-5 px-5 py-5 md:columns-3 lg:columns-4">
     <Tarjeta v-for="obra in obras" :key="obra.id" :obra="obra" />
+  </section>
+  
   </div>
 </template>

@@ -1,5 +1,5 @@
-const API = 'https://api.artic.edu/api/v1/artworks'
-const IIIF = 'https://www.artic.edu/iiif/2'
+const API = '/api-artic/artworks'
+const IIIF = '/iiif'
 const FIELDS = 'id,title,image_id,artist_title,department_title,date_display'
 
 export function imageUrl(imageId, width = 400) {
@@ -8,7 +8,11 @@ export function imageUrl(imageId, width = 400) {
 }
 
 async function request(url) {
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    headers: {
+      'AIC-User-Agent': 'MuseoDeArteVue (estudiante@davinci.edu.ar)'
+    }
+  })
   if (!res.ok) throw new Error(`Error ${res.status}`)
   return res.json()
 }
