@@ -11,7 +11,7 @@ defineProps({ obra: Object })
     <!-- Marco y pintura-->
     <div
       class="bg-[url('/marco-largo.png')] bg-[length:100%_100%] bg-no-repeat p-4 sm:p-6
-             shadow-xl transition-shadow duration-500 group-hover:shadow-2xl"
+              duration-500 "
     >
       <div class="relative">
         <img

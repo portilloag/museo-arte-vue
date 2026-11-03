@@ -38,7 +38,7 @@ onMounted(cargar)
       Museo de arte virtual
     </h2>
  <section
-class="columns-2 gap-x-5 px-5 py-5 md:columns-3 lg:columns-4">
+class="columns-2 gap-x-5  px-5 py-5 md:columns-3 lg:columns-4">
     <Tarjeta v-for="obra in obras" :key="obra.id" :obra="obra" />
   </section>
   

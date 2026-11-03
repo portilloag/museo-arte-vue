@@ -1,10 +1,30 @@
 
 @import "tailwindcss";
 
+
 body{
-  background-color: #450011;
+  background-color: #5a0016;
 }
 
 .cursor-lupa {
   cursor: url('/lupa.png') 16 16, pointer !important; 
+}
+
+.pared-museo{
+  position: relative;
+  isolation: isolate;
+  
+}
+
+
+.pared-museo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('pattern-damasco.jpg');
+  background-repeat: repeat;
+  background-size: 400px; 
+  opacity: 0.20; 
 }
