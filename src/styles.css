@@ -1,30 +1,69 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
 @import "tailwindcss";
 
+.font-script {
+  font-family: 'Pinyon Script', cursive;
+}
 
 body{
   background-color: #5a0016;
 }
+
+
 
 .cursor-lupa {
   cursor: url('/lupa.png') 16 16, pointer !important; 
 }
 
 .pared-museo{
-  position: relative;
+position: sticky;
   isolation: isolate;
   
 }
 
-
-.pared-museo::before {
+.pared-museo::before{
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: url('pattern-damasco.jpg');
+  background-image: url('/pattern-damasco.jpg') !important;
   background-repeat: repeat;
   background-size: 400px; 
   opacity: 0.20; 
+}
+
+.hero-buttons{
+  background-color: rgba(0, 192, 230, 0.907);
+}
+
+@keyframes buttons-in {
+  from { opacity: 0; pointer-events: none; }
+  to   { opacity: 1; pointer-events: auto; }
+}
+
+@keyframes frame-left  { to { transform: translateX(-130%); opacity: 0; } }
+@keyframes frame-right { to { transform: translateX(130%);  opacity: 0; } }
+@keyframes title-up    { to { transform: translateY(-36vh) scale(0.6); } }
+@keyframes buttons-in  { to { opacity: 1; } }
+
+@supports (animation-timeline: scroll()) {
+  .hero-frame-l,
+  .hero-frame-r,
+  .hero-title,
+  .hero-buttons {
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(root);
+  }
+  .hero-frame-l  { animation-name: frame-left;  animation-range: 0 70vh; }
+  .hero-frame-r  { animation-name: frame-right; animation-range: 0 70vh; }
+  .hero-title    { animation-name: title-up;    animation-range: 0 80vh; }
+  .hero-buttons  { animation-name: buttons-in;  animation-range: 50vh 90vh; }
+}
+
+
+@supports not (animation-timeline: scroll()) {
+  .hero-buttons { opacity: 1; }
 }
