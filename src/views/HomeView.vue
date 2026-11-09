@@ -6,6 +6,8 @@ import Tarjeta from '@/components/Tarjeta.vue'
 import Hero from '@/components/Hero.vue' 
 import Navbar from '@/components/Navbar.vue'
 import Buscador from '@/components/Buscador.vue'
+import Footer from '@/components/Footer.vue'
+
 
 const obras = ref([])
 const cargando = ref(true)
@@ -52,4 +54,6 @@ class="columns-2 gap-x-5 px-3 sm:px-5 py-5 md:columns-3 lg:columns-4 overflow-vi
   </section>
   
   </div>
+  
+<Footer/>
 </template>
