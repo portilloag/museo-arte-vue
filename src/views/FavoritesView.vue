@@ -1,18 +1,16 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { getFavs, btnFavs } from '@/utils/favorites.js'
-import Tarjeta from '@/components/Tarjeta.vue'
-import { btnFavs } from '../favs'
+import { onMounted } from "vue"
+import { useFavs } from "@/composable/useFavorites"
+import Tarjeta from "@/components/Tarjeta.vue"
 
-const favorites = ref([])
+const { cargarFavs, favs } = useFavs()
 
-onMounted(() => {
-  favorites.value = getFavs()
-})
+onMounted( () => {
+  cargarFavs()
+} )
 
-const quitarFav = (artwork) => {
-  favorites.value = btnFavs(artwork)
 </script>
 <template>
-  <Tarjeta/>
+<h1>Listado de favoritos</h1>
+<Tarjeta :obra="favs"></Tarjeta>
 </template>
