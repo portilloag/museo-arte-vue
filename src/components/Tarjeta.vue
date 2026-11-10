@@ -50,14 +50,28 @@ const isFavs = computed( () => {
             {{ obra.artist_title }}
           </p>
         </div>
-        <div>
-          <button @click="agregarFavs(obra)">
-            <template v-if="isFavs" >Quitar</template>
-            <template v-else >Agregar</template>
-            a favoritos
-          </button>
-        </div>
       </div>
-    </div>
+    </div> 
+  
+<button
+  type="button"
+  :aria-label="isFavs ? 'Quitar de favoritos' : 'Agregar a favoritos'"
+  class="absolute right-2 top-2 z-10 flex h-9 w-9 cursor-pointer items-center justify-center
+         rounded-full bg-black/40 backdrop-blur-sm transition duration-300
+         hover:scale-110 hover:bg-black/60
+         [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
+  @click="agregarFavs(obra)"
+>
+  <svg
+    class="h-5 w-5 transition duration-300"
+    :class="isFavs ? 'fill-rose-500 stroke-rose-500 scale-110' : 'fill-transparent stroke-white'"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke-linejoin="round"
+  >
+    <path d="M12 21s-7-4.6-9.3-9.1C1.1 8.7 3 5 6.5 5c2 0 3.5 1.1 5.5 3.2C14 6.1 15.500 5 17.500 5 21 5 22.900 8.700 21.300 11.900 19 16.400 12 21 12 21Z" />
+  </svg>
+</button>
   </article>
 </template>
+       
