@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router"
-
+import HomeView from '@/views/HomeView.vue'
+import DetallesView from '@/views/DetallesView.vue'
+import FavoritesView from '@/views/FavoritesView.vue'
+import ContactView from '@/views/ContactView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(),

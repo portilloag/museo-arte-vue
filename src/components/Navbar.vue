@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink, RouterView } from 'vue-router';
-
+import Buscador from './Buscador.vue';
 
 const abierto = ref(false);
 </script>
@@ -21,12 +21,12 @@ const abierto = ref(false);
     v-if="abierto"
     class="sticky top-[56px] z-40 flex flex-col gap-2 px-4 py-3 backdrop-blur-md text-white sm:px-6"
   >
-  <ul>
-  <li><RouterLink to="/">Inicio</RouterLink></li>
-  <li><RouterLink to="/museo">Galería</RouterLink></li>
-  <li><RouterLink to="/#buscador">Buscador</RouterLink></li>
-  <li><RouterLink to="/favorites">Favoritos</RouterLink></li>
-  <li><RouterLink to="/contact">Contacto</RouterLink></li>
-</ul>
+    <ul>
+        <li><RouterLink to="/">Inicio</RouterLink></li>
+        <li><RouterLink to="/museo">Galería</RouterLink></li>
+        <li><RouterLink to="/contact">Buscador</RouterLink></li>
+        <li><RouterLink to="/favorites">Favoritos</RouterLink></li>
+        <Buscador />
+      </ul>
   </nav>
 </template>

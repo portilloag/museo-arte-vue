@@ -1,4 +1,4 @@
 <script setup></script>
 <template>
-  <h1>C404</h1>
+  <h1>Contacto</h1>
 </template>
