@@ -1,5 +1,3 @@
-// En desarrollo se usa el proxy de vite.config.js (funciona con las imágenes de ARTIC).
-// En producción (Firebase) se usa el Worker de Cloudflare, porque ARTIC bloquea CORS y las peticiones desde Supabase.
 const PROXY = 'https://artic-proxy-museo.bold-meadow-f35c.workers.dev'
 const API = import.meta.env.DEV ? '/api-artic/artworks' : `${PROXY}/artworks`
 const IIIF = import.meta.env.DEV ? '/iiif' : `${PROXY}/iiif`
