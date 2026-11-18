@@ -1,5 +1,6 @@
-const API = '/api-artic/artworks'
-const IIIF = '/iiif'
+const PROXY = 'https://artic-proxy-museo.bold-meadow-f35c.workers.dev'
+const API = import.meta.env.DEV ? '/api-artic/artworks' : `${PROXY}/artworks`
+const IIIF = import.meta.env.DEV ? '/iiif' : `${PROXY}/iiif`
 const FIELDS = 'id,title,image_id,artist_title,department_title,date_display'
 
 export function imageUrl(imageId, width = 400) {
