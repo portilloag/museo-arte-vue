@@ -25,6 +25,7 @@ const isFavs = computed( () => {
       class="bg-[url('/marco-largo.png')] bg-[length:100%_100%] bg-no-repeat p-4 sm:p-6
               duration-500 "
     >
+    <RouterLink :to="`/detalle/${obra.id}`" class="relative block">
       <div class="relative">
         <img
           v-if="obra.image_id"
@@ -50,7 +51,9 @@ const isFavs = computed( () => {
             {{ obra.artist_title }}
           </p>
         </div>
+        
       </div>
+      </RouterLink>
     </div> 
   
 <button

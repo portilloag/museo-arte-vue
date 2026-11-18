@@ -50,5 +50,5 @@ class="columns-2 gap-x-5 px-3 sm:px-5 py-5 md:columns-3 lg:columns-4 overflow-vi
   
   </div>
   
-<!-- <Footer/> -->
+
 </template>
