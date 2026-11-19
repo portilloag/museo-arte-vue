@@ -16,7 +16,7 @@ const loading = ref(true)
 
 getArtwork(route.params.id)
   .then(res => {
-    obra.value = res.data ?? res
+    obra.value = res.data
   })
   .catch(err => {
     console.log(err)
@@ -133,7 +133,7 @@ getArtwork(route.params.id)
 
     </div>
 
-    <!-- Spinner -->
+    <!-- loading -->
     <div v-else class="flex justify-center py-16">
       <svg class="size-8 animate-spin text-amber-100" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
