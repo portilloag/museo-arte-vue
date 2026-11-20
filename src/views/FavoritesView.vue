@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
 
-  <main class="px-3 pb-14 pt-24 sm:px-5">
+  <div class="px-3 pb-14 pt-24 sm:px-5">
     <h1 class="mb-8 text-center font-script text-4xl font-bold text-white md:text-5xl">
       Mis favoritos
     </h1>
@@ -28,5 +28,5 @@ onMounted(() => {
     >
       <Tarjeta v-for="obra in favs" :key="obra.id" :obra="obra" />
     </section>
-  </main>
+  </div>
 </template>
