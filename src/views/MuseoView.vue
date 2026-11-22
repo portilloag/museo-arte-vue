@@ -1,54 +1,67 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { getArtworks } from "@/services/artic";
-import Tarjeta from "@/components/Tarjeta.vue"
-import Navbar from "../components/Navbar.vue";
+import { useRoute } from "vue-router";
+import Tarjeta from "@/components/Tarjeta.vue";
+import Buscador from "@/components/Buscador.vue";
+import Recomendador from "@/components/Recomendador.vue";
 
-
+const route = useRoute();
 const obras = ref([]);
-const cargando = ref(true);
-const error = ref(null);
+const current = ref(1);
+const total = ref(1);
 
-async function cargar() {
-  cargando.value = true;
-  error.value = null;
-  try {
-    const res = await getArtworks();
-    obras.value = res.data;
-  } catch (e) {
-    console.error("Fallo al cargar obras:", e);
-    error.value = `No se pudieron cargar las obras (${e.message})`;
-  } finally {
-    cargando.value = false;
-  }
-}
+const fetchApi = (page = 1) => {
+  getArtworks(page, 12)
+    .then((data) => {
+      obras.value = data.data;
+      current.value = data.pagination.current_page;
+      total.value = Math.min(data.pagination.total_pages, 83);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    })
+    .catch((err) => console.log(err));
+};
 
-onMounted(cargar);
+const paginas = computed(() =>
+  [current.value, current.value + 1, current.value + 2].filter(
+    (p) => p <= total.value,
+  ),
+);
 
+onMounted(() => {
+  fetchApi();
+});
+
+watch(() => route.query, fetchApi);
 </script>
 
-
 <template>
-  <div>
-    
-  </div>
-  <p v-if="cargando" class="text-center py-8 text-white">Cargando...</p>
+  <h1 class="font-script my-6 text-center text-3xl font-bold text-white md:text-4xl">
+    Galería del Museo
+  </h1>
+  <Buscador/>
+  <Recomendador :obras="obras" />
 
-  <div v-else-if="error" class="text-center py-8">
-    <p class="text-red-600 mb-2">{{ error }}</p>
-    <button @click="cargar" class="px-4 py-2 bg-blue-600 text-white rounded">Reintentar</button>
-  </div>
-  <div v-else class="container mx-auto px-2 py-2">
-    <h2 class=" font-script text-3xl text-center md:text-4xl font-bold text-white mt-6 mb-6">
-      Exposición Actual
-    </h2>
- <section
-class="columns-2 gap-x-5 px-3 sm:px-5 py-5 md:columns-3 lg:columns-4 overflow-visible">
+  <section class="columns-2 gap-x-5 px-3 py-5 sm:px-5 md:columns-3 lg:columns-4">
     <Tarjeta v-for="obra in obras" :key="obra.id" :obra="obra" />
   </section>
-  
+
+  <div class="my-6 flex justify-center space-x-1">
+    <button v-show="current > 1" @click="fetchApi(current - 1)"
+      class="cursor-pointer rounded-md border border-amber-200/20 bg-stone-900/80 px-3 py-2 text-center text-sm text-white transition-all hover:bg-stone-800">
+      Prev
+    </button>
+
+    <button v-for="p in paginas" :key="p" @click="fetchApi(p)" :class="p === current
+        ? 'border-amber-500 bg-amber-600 text-white'
+        : 'border-amber-200/20 bg-stone-900/80 text-white hover:bg-stone-800'
+      " class="min-w-9 cursor-pointer rounded-md border px-3 py-2 text-center text-sm transition-all">
+      {{ p }}
+    </button>
+
+    <button v-show="current < total" @click="fetchApi(current + 1)"
+      class="cursor-pointer rounded-md border border-amber-200/20 bg-stone-900/80 px-3 py-2 text-center text-sm text-white transition-all hover:bg-stone-800">
+      Next
+    </button>
   </div>
-  
-<!-- <Footer/> -->
 </template>

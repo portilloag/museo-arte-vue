@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { RouterLink, RouterView } from 'vue-router';
 
-
 const abierto = ref(false);
 </script>
 
@@ -24,7 +23,6 @@ const abierto = ref(false);
   <ul>
   <li><RouterLink to="/">Inicio</RouterLink></li>
   <li><RouterLink to="/museo">Galería</RouterLink></li>
-  <li><RouterLink to="/#buscador">Buscador</RouterLink></li>
   <li><RouterLink to="/favorites">Favoritos</RouterLink></li>
   <li><RouterLink to="/contact">Contacto</RouterLink></li>
 </ul>

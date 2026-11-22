@@ -9,8 +9,6 @@ body{
   background-color: #5a0016;
 }
 
-
-
 .cursor-lupa {
   cursor: url('/lupa.png') 16 16, pointer !important; 
 }
@@ -61,7 +59,6 @@ position: sticky;
   .hero-title    { animation-name: title-up;    animation-range: 0 80vh; }
   .hero-buttons  { animation-name: buttons-in;  animation-range: 50vh 90vh; }
 }
-
 
 @supports not (animation-timeline: scroll()) {
   .hero-buttons { opacity: 1; }
