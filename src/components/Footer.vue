@@ -1,5 +1,17 @@
 <script setup>
+import { signInWithPopup, signOut } from "firebase/auth"
+import { auth, googleProvider, gitProvider } from "../services/firebase.js"
 const anio = new Date().getFullYear()
+
+async function loginGoogle(){
+  const result = await signInWithPopup(auth, googleProvider)
+  console.log(result)
+}
+
+async function loginGithub(){
+  const result = await signInWithPopup(auth, gitProvider)
+  console.log(result)
+}
 </script>
 
 <template>
@@ -23,6 +35,18 @@ const anio = new Date().getFullYear()
              class="flex h-8 w-8 items-center justify-center rounded-full border border-[#c9a45c]/60 transition hover:bg-[#c9a45c]/20">
             <span class="text-xs">FB</span>
           </a>
+
+          <button @click="loginGoogle"
+             class="flex h-8 w-8 items-center justify-center rounded-full border border-[#c9a45c]/60 transition hover:bg-[#c9a45c]/20">
+           
+            <span class="text-xs">GG</span>
+          </button>
+
+          <button @click="loginGithub"
+             class="flex h-8 w-8 items-center justify-center rounded-full border border-[#c9a45c]/60 transition hover:bg-[#c9a45c]/20">
+           
+            <span class="text-xs">GH</span>
+          </button>
         </div>
       </div>
 
@@ -54,11 +78,9 @@ const anio = new Date().getFullYear()
           <ul class="mt-4 space-y-2 font-serif text-sm text-amber-100/80">
             <li><RouterLink to="/" class="transition hover:text-[#e6c982]">Inicio</RouterLink></li>
             <li><RouterLink to="/museo" class="transition hover:text-[#e6c982]">Galería</RouterLink></li>
-            <li><RouterLink to="/#buscador" class="transition hover:text-[#e6c982]">Buscador</RouterLink></li>
           </ul>
         </div>
 
-      
         <div>
           <h3 class="font-serif text-sm font-bold uppercase tracking-widest text-[#c9a45c]">Tu espacio</h3>
           <ul class="mt-4 space-y-2 font-serif text-sm text-amber-100/80">

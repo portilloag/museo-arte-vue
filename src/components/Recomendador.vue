@@ -1,36 +1,37 @@
 <script setup>
-// import { ref, nextTick, watch } from "vue";
-// import { useRecomendador } from "@/composable/useRecomendador";
+import { ref, nextTick, watch } from "vue";
+import { useRecomendador } from "@/composable/useRecomendador";
 
-// const props = defineProps({
-//   obras: { type: Array, default: () => [] },
-// });
+const props = defineProps({
+  obras: { type: Array, default: () => [] },
+});
 
-// const { historial, cargando, error, enviar } = useRecomendador(
-//   () => props.obras,
-// );
+const { historial, cargando, error, enviar } = useRecomendador(
+  () => props.obras,
+);
 
-// const abierto = ref(false);
-// const texto = ref("");
-// const lista = ref(null);
+const obras = ref([]);
+const abierto = ref(false);
+const texto = ref("");
+const lista = ref(null);
 
-// async function onSubmit() {
-//   const mensaje = texto.value;
-//   texto.value = "";
-//   await enviar(mensaje);
-// }
+async function onSubmit() {
+  const mensaje = texto.value;
+  texto.value = "";
+  await enviar(mensaje);
+}
 
-// watch(
-//   [() => historial.value.length, cargando],
-//   async () => {
-//     await nextTick();
-//     if (lista.value) lista.value.scrollTop = lista.value.scrollHeight;
-//   },
-// );
+watch(
+  [() => historial.value.length, cargando],
+  async () => {
+    await nextTick();
+    if (lista.value) lista.value.scrollTop = lista.value.scrollHeight;
+  },
+);
 </script>
 
 <template>
-  <!-- <button
+  <button
     v-if="!abierto"
     @click="abierto = true"
     class="fixed right-4 bottom-4 z-50 cursor-pointer rounded-full bg-amber-600 px-5 py-3 text-sm font-semibold text-white shadow-xl ring-1 ring-amber-200/30 transition hover:bg-amber-500 active:scale-95"
@@ -95,5 +96,5 @@
         Enviar
       </button>
     </form>
-  </div> -->
+  </div>
 </template>

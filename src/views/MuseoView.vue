@@ -2,10 +2,9 @@
 import { ref, computed, onMounted, watch } from "vue";
 import { getArtworks, searchArtworks } from "@/services/artic";
 import { useRoute, useRouter } from "vue-router";
-
+import Filtros from "@/components/Filtros.vue";
 import Tarjeta from "@/components/Tarjeta.vue";
 import Buscador from "@/components/Buscador.vue";
-import Recomendador from "@/components/Recomendador.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -63,7 +62,6 @@ async function cargarObras() {
   }
 }
 
-// Cambiar página actual sin recargar
 function cambiarPagina(pagina) {
   if (pagina < 1 || pagina > total.value) return;
 
@@ -94,8 +92,7 @@ watch(
   </h1>
 
   <Buscador />
-
-  <Recomendador :obras="obras" />
+  <Filtros />
 
   <section v-if="loading" class="py-10 text-center text-white">
     Cargando obras...
@@ -106,7 +103,7 @@ watch(
   </section>
 
   <div v-if="total > 1" class="my-6 flex flex-wrap justify-center gap-1">
-    <!-- Anterior -->
+    
     <button v-show="current > 1" @click="cambiarPagina(current - 1)"
       class="cursor-pointer rounded-md border border-amber-200/20 bg-stone-900/80 px-3 py-2 text-sm text-white transition hover:bg-stone-800">
       Prev

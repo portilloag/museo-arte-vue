@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import { exposicionActual } from "../services/artic.js";
 import { useRoute } from "vue-router";
 import Hero from "@/components/Hero.vue";
-// import Recomendador from "../components/Recomendador.vue";
+import Recomendador from "../components/Recomendador.vue";
 import ExposicionActual from "@/components/ExposicionActual.vue";
 
 const obras = ref([]);
@@ -31,7 +31,7 @@ onMounted(cargar);
 
 <template>
   <Hero />
-  <!-- <Recomendador /> -->
+  <Recomendador :obras="obras" />
   <p v-if="cargando" class="text-center py-8 text-white">Cargando...</p>
 
   <div v-else-if="error" class="text-center py-8">
