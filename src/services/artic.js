@@ -56,11 +56,6 @@ export function searchArtworks(query = "", filtros = {}, page = 1, limit = 12) {
     filter.push({ term: { "style_titles.keyword": filtros.estilo } });
   }
 
-  if (filtros.anio) {
-    const [desde, hasta] = filtros.anio.split("-").map(Number);
-    filter.push({ range: { date_start: { gte: desde, lte: hasta } } });
-  }
-
   const params = {
     page,
     limit,

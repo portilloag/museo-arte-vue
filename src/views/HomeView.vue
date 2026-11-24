@@ -1,9 +1,9 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import { exposicionActual, searchArtworks } from "../services/artic.js";
+import { ref, onMounted } from "vue";
+import { exposicionActual } from "../services/artic.js";
 import { useRoute } from "vue-router";
 import Hero from "@/components/Hero.vue";
-import Recomendador from "../components/Recomendador.vue";
+// import Recomendador from "../components/Recomendador.vue";
 import ExposicionActual from "@/components/ExposicionActual.vue";
 
 const obras = ref([]);
@@ -16,12 +16,8 @@ async function cargar() {
   error.value = null;
 
   try {
-    const res = hayFiltros
-      ? await searchArtworks(q ?? "", { estilo })
-      : await exposicionActual();
-
+    const res = await exposicionActual();
     obras.value = res.data;
-    titulo.value = hayFiltros ? "Resultados" : "Exposición Actual";
   } catch (e) {
     console.error("Fallo al cargar obras:", e);
     error.value = `No se pudieron cargar las obras (${e.message})`;
@@ -31,12 +27,11 @@ async function cargar() {
 }
 
 onMounted(cargar);
-
 </script>
 
 <template>
   <Hero />
-  <Recomendador />
+  <!-- <Recomendador /> -->
   <p v-if="cargando" class="text-center py-8 text-white">Cargando...</p>
 
   <div v-else-if="error" class="text-center py-8">
