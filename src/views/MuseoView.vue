@@ -33,6 +33,7 @@ const paginas = computed(() => {
 
 async function cargarObras() {
   cargando.value = true;
+  error.value = false;
 
   try {
     const page = Number(route.query.page) || 1;
