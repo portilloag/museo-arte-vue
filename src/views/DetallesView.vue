@@ -4,30 +4,41 @@ import { ref } from 'vue'
 import { getArtwork } from '@/services/artic'
 import { imageUrl } from '@/services/artic'
 import { useFavs } from '@/composable/useFavorites'
+import Loader from '@/components/Loader.vue'
 
 const { cargarFavs, esFavs, agregarFavs } = useFavs()
 cargarFavs()
 
 const route = useRoute()
 const obra = ref(null)
-const loading = ref(true)
+const cargando = ref(true)
+const error = ref('')
 
-getArtwork(route.params.id)
-    .then(res => {
-        obra.value = res.data
-    })
-    .catch(err => {
-        console.log(err)
-    })
-    .finally(() => {
-        loading.value = false
-    })
+function cargar() {
+    cargando.value = true
+    error.value = ''
+    obra.value = null
+
+    getArtwork(route.params.id)
+        .then(res => {
+            obra.value = res.data
+        })
+        .catch(err => {
+            console.log(err)
+            error.value = `No se pudo cargar la obra`
+        })
+        .finally(() => {
+            cargando.value = false
+        })
+}
+
+cargar()
 </script>
 
 <template>
 
     <div class="min-h-svh px-5 pb-16 pt-24">
-        <div v-if="!loading">
+        <div v-if="!cargando">
 
             <div v-if="obra" class="mx-auto max-w-6xl">
 
@@ -107,21 +118,17 @@ getArtwork(route.params.id)
             </div>
 
             <div v-else class="py-16 text-center font-serif text-amber-100">
-                Error al traer la obra
+                <p class="mb-3">{{ error || 'Error al traer la obra' }}</p>
+                <button type="button" @click="cargar"
+                    class="cursor-pointer rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-500 active:scale-95">
+                    Reintentar
+                </button>
             </div>
 
         </div>
 
-        <!-- loading -->
-        <div v-else class="flex justify-center py-16">
-            <svg class="size-8 animate-spin text-amber-100" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-            </svg>
-        </div>
+        <!-- cargando -->
+        <Loader v-else />
     </div>
 
 </template>

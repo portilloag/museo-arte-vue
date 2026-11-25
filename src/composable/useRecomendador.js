@@ -15,7 +15,7 @@ export function useRecomendador(obras) {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer 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`,
+        Authorization: `Bearer`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

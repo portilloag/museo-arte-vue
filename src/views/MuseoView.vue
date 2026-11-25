@@ -5,6 +5,7 @@ import { useRoute, useRouter } from "vue-router";
 import Filtros from "@/components/Filtros.vue";
 import Tarjeta from "@/components/Tarjeta.vue";
 import Buscador from "@/components/Buscador.vue";
+import Loader from '@/components/Loader.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -12,7 +13,8 @@ const router = useRouter();
 const obras = ref([]);
 const current = ref(1);
 const total = ref(1);
-const loading = ref(false);
+const cargando = ref(false);
+const error = ref(false);
 
 const paginas = computed(() => {
   const maxPaginas = 4;
@@ -30,7 +32,7 @@ const paginas = computed(() => {
 });
 
 async function cargarObras() {
-  loading.value = true;
+  cargando.value = true;
 
   try {
     const page = Number(route.query.page) || 1;
@@ -54,11 +56,11 @@ async function cargarObras() {
     current.value = data.pagination.current_page;
     total.value = data.pagination.total_pages;
 
-  } catch (error) {
-    console.error("Error al cargar las obras:", error);
+  } catch (e) {
     obras.value = [];
+    error.value = true;
   } finally {
-    loading.value = false;
+    cargando.value = false;
   }
 }
 
@@ -94,8 +96,11 @@ watch(
   <Buscador />
   <Filtros />
 
-  <section v-if="loading" class="py-10 text-center text-white">
-    Cargando obras...
+  <Loader v-if="cargando"/>
+
+  <section v-else-if="error" class="py-10 text-center text-white">
+    <p>No pudimos cargar las obras.</p>
+    <button @click="cargarObras" class="mt-3 rounded-md bg-amber-600 px-4 py-2">Reintentar</button>
   </section>
 
   <section v-else class="columns-2 gap-x-5 px-3 py-5 sm:px-5 md:columns-3 lg:columns-4">
@@ -103,7 +108,7 @@ watch(
   </section>
 
   <div v-if="total > 1" class="my-6 flex flex-wrap justify-center gap-1">
-    
+
     <button v-show="current > 1" @click="cambiarPagina(current - 1)"
       class="cursor-pointer rounded-md border border-amber-200/20 bg-stone-900/80 px-3 py-2 text-sm text-white transition hover:bg-stone-800">
       Prev
