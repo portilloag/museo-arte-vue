@@ -1,23 +1,5 @@
 {
-  "name": "museo-de-arte-vue",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
   "dependencies": {
-    "firebase": "^9.14.0",
-    "router-view": "^1.1.7",
-    "vue": "^3.5.44",
-    "vue-router": "^5.4.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "@vitejs/plugin-vue": "^6.0.10",
-    "vite": "^8.3.5",
-    "vite-plugin-vue-devtools": "^8.2.1"
+    "lucide-vue-next": "^1.0.0"
   }
 }

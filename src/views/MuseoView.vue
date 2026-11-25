@@ -98,27 +98,29 @@ watch(
     Cargando obras...
   </section>
 
-  <section v-else class="columns-2 gap-x-5 px-3 py-5 sm:px-5 md:columns-3 lg:columns-4">
-    <Tarjeta v-for="obra in obras" :key="obra.id" :obra="obra" />
+  <section v-else class="container mx-auto px-2 py-2 ">
+    <div class="container mx-auto px-2 py-2 columns-2 gap-x-5 px-3 sm:px-5 py-5 md:columns-3 lg:columns-4 overflow-visible">
+      <Tarjeta v-for="obra in obras" :key="obra.id" :obra="obra" />
+    </div>
   </section>
 
-  <div v-if="total > 1" class="my-6 flex flex-wrap justify-center gap-1">
-    
-    <button v-show="current > 1" @click="cambiarPagina(current - 1)"
-      class="cursor-pointer rounded-md border border-amber-200/20 bg-stone-900/80 px-3 py-2 text-sm text-white transition hover:bg-stone-800">
-      Prev
-    </button>
+  <div v-if="total > 1" class="my-10 flex flex-wrap items-center justify-center gap-2 font-serif">
 
-    <button v-for="p in paginas" :key="p" @click="cambiarPagina(p)" :class="current === p
-      ? 'border-amber-500 bg-amber-600 text-white'
-      : 'border-amber-200/20 bg-stone-900/80 text-white hover:bg-stone-800'
-      " class="min-w-9 cursor-pointer rounded-md border px-3 py-2 text-sm transition">
-      {{ p }}
-    </button>
+  <button v-show="current > 1" @click="cambiarPagina(current - 1)"
+    class="cursor-pointer rounded-full border border-[#c9a45c]/60 px-4 py-2 text-xs uppercase  text-amber-50 transition hover:bg-[#c9a45c]/20 active:scale-95">
+    Prev
+  </button>
 
-    <button v-show="current < total" @click="cambiarPagina(current + 1)"
-      class="cursor-pointer rounded-md border border-amber-200/20 bg-stone-900/80 px-3 py-2 text-sm text-white transition hover:bg-stone-800">
-      Next
-    </button>
-  </div>
+  <button v-for="p in paginas" :key="p" @click="cambiarPagina(p)" :class="current === p
+    ? 'border-[#c9a45c] bg-[#c9a45c] font-bold text-[#3a0810]'
+    : 'border-[#c9a45c]/60 text-amber-50 hover:bg-[#c9a45c]/20'
+    " class="flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-full border px-3 text-sm transition active:scale-95">
+    {{ p }}
+  </button>
+
+  <button v-show="current < total" @click="cambiarPagina(current + 1)"
+    class="cursor-pointer rounded-full border border-[#c9a45c]/60 px-4 py-2 text-xs uppercase  text-amber-50 transition hover:bg-[#c9a45c]/20 active:scale-95">
+    Siguiente
+  </button>
+</div>
 </template>

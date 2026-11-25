@@ -8,6 +8,7 @@ import { useFavs } from '@/composable/useFavorites'
 const { cargarFavs, esFavs, agregarFavs } = useFavs()
 cargarFavs()
 
+const descAbierta = ref(false)
 const route = useRoute()
 const obra = ref(null)
 const loading = ref(true)
@@ -32,7 +33,7 @@ getArtwork(route.params.id)
             <div v-if="obra" class="mx-auto max-w-6xl">
 
                 <RouterLink to="/museo" class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10
-                 px-4 py-2 font-serif text-xs uppercase tracking-widest text-amber-50
+                 px-4 py-2 font-serif text-xs uppercase  text-amber-50
                  backdrop-blur-md transition hover:bg-white/20">
                     ← Volver
                 </RouterLink>
@@ -42,7 +43,7 @@ getArtwork(route.params.id)
                     <!-- Obra -->
                     <div class="flex items-center justify-center lg:sticky lg:top-24">
                         <div
-                            class="bg-[url('/marco-largo.png')] bg-[length:100%_100%] bg-no-repeat p-5 shadow-2xl sm:p-8">
+                            class="marco-dorado [--grosor:8px] sm:[--grosor:12px]">
                             <img v-if="obra.image_id" :src="imageUrl(obra.image_id, 843)" :alt="obra.title"
                                 referrerpolicy="no-referrer"
                                 class="block max-h-[65vh] w-auto max-w-full object-contain shadow-inner" />
@@ -72,25 +73,43 @@ getArtwork(route.params.id)
                         </p>
 
                         <p v-if="obra.medium_display"
-                            class="mt-4 border-t border-[#c9a45c]/30 pt-4 font-serif text-xs uppercase tracking-widest text-amber-100/70">
+                            class="mt-4 border-t border-[#c9a45c]/30 pt-4 font-serif text-xs uppercase  text-amber-100/70">
                             {{ obra.medium_display }}
                         </p>
 
-                        <div v-if="obra.description"
-                            class="mt-4 space-y-3 font-serif text-sm leading-relaxed text-amber-50/90"
-                            v-html="obra.description" />
-                        <p v-else class="mt-4 font-serif text-sm italic text-amber-100/60">
-                            Esta obra no tiene descripción disponible.
-                        </p>
+                        
+                    <div class="mt-4 border-t border-[#c9a45c]/30 pt-4">
 
+  <div v-if="obra.description">
+    <div
+      v-html="obra.description"
+      :class="descAbierta ? '' : 'line-clamp-5 [&_p]:inline'"
+      class="font-serif text-xs uppercase leading-relaxed text-amber-100/70 [&_a]:underline"
+    ></div>
+
+    <button
+      v-if="obra.description.length > 250"
+      type="button"
+      @click="descAbierta = !descAbierta"
+      class="mt-3 cursor-pointer font-serif text-[11px] uppercase tracking-widest text-[#c9a45c] transition hover:text-[#e6c982]"
+    >
+      {{ descAbierta ? 'Ver menos ▲' : 'Ver más ▼' }}
+    </button>
+  </div>
+
+  <p v-else class="font-serif text-sm italic text-amber-100/60">
+    Esta obra no tiene descripción disponible.
+  </p>
+
+</div>
                         <div class="mt-6 flex flex-wrap gap-3">
                             <RouterLink to="/contact" class="rounded-full border border-white/70 bg-white px-6 py-2.5 font-serif text-xs
-                       uppercase tracking-widest text-black transition duration-300
+                       uppercase  text-black transition duration-300
                        hover:bg-transparent hover:text-white">
                                 Consultar impresión
                             </RouterLink>
                             <button type="button" class="flex items-center gap-2 rounded-full border border-white/70 px-6 py-2.5 font-serif text-xs
-         uppercase tracking-widest text-white transition duration-300
+         uppercase  text-white transition duration-300
          hover:bg-white hover:text-black" @click="agregarFavs(obra)">
                                 <svg class="h-4 w-4 transition duration-300"
                                     :class="esFavs(obra.id) ? 'fill-rose-500 stroke-rose-500' : 'fill-transparent stroke-current'"

@@ -43,7 +43,7 @@ function elegirEstilo(valor) {
           "
           class="flex cursor-pointer flex-col items-center gap-2 rounded-md border px-3 py-4 text-center shadow-lg backdrop-blur-md transition duration-300 hover:-translate-y-1"
         >
-          <span class="font-serif text-xs font-bold uppercase tracking-widest text-amber-50">
+          <span class="font-serif text-xs font-bold uppercase  text-amber-50">
             {{ c.label }}
           </span>
         </button>

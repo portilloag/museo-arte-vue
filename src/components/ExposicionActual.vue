@@ -17,10 +17,10 @@ const isFavs = computed(() => {
 </script>
 
 <template>
-  <article class=" cursor-lupa group relative mb-2 break-inside-avoid overflow-visible transition-all duration-500 ease-out
-           hover:z-40 hover:scale-110">
-    <div class="bg-[url('/marco-largo.png')] bg-[length:100%_100%] bg-no-repeat p-4 sm:p-6
-              duration-500 ">
+  <article class=" cursor-lupa group relative mb-6 break-inside-avoid overflow-visible transition-all duration-500 ease-out
+           hover:z-40 hover:scale-105">
+  <RouterLink :to="`/detalle/${obra.id}`" class="relative block">
+   <div class="marco-dorado [--grosor:8px] sm:[--grosor:12px]">
       <div class="relative">
         <img v-if="obra.image_id" :src="imageUrl(obra.image_id, 400)" :alt="obra.title" loading="lazy"
           referrerpolicy="no-referrer" class="block h-auto w-full shadow-inner" />
@@ -42,7 +42,7 @@ const isFavs = computed(() => {
         </div>
       </div>
     </div>
-
+    </RouterLink>
     <button type="button" :aria-label="isFavs ? 'Quitar de favoritos' : 'Agregar a favoritos'" class="absolute right-2 top-2 z-10 flex h-9 w-9 cursor-pointer items-center justify-center
          rounded-full bg-black/40 backdrop-blur-sm transition duration-300
          hover:scale-110 hover:bg-black/60

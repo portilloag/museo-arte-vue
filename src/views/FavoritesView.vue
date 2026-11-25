@@ -28,4 +28,5 @@ onMounted(() => {
       <Tarjeta v-for="obra in favs" :key="obra.id" :obra="obra" />
     </section>
   </div>
+  
 </template>
