@@ -34,7 +34,7 @@
 
    
     <img
-      src="../../public/"
+      src="../../public/404.png"
       alt="Oreja"
       class="mt-10 h-auto w-48 object-contain drop-shadow-2xl md:w-64"
     />
