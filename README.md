@@ -2,9 +2,6 @@
 
 Aplicación web de un museo virtual hecha con Vue 3 y Vite. Permite explorar pinturas de la colección del Art Institute of Chicago, buscar y filtrar por estilo, ver el detalle de cada obra, guardar favoritos, iniciar sesión con Google o GitHub y pedirle recomendaciones a un asistente de IA.
 
-![alt text](image-1.png)
-![alt text](3.PNG) ![alt text](4.PNG)
-
 ## Integrantes
 
 - Naiara Tymkiw
