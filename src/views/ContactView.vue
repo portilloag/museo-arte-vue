@@ -1,9 +1,13 @@
 <script setup>
-import Navbar from '../components/Navbar.vue';
+import { useRouter } from 'vue-router'
+const router = useRouter()
+function enviarFormulario(){
+  router.push('/')
 
+}
 </script>
 <template>
-  <main class="mx-auto flex min-h-svh max-w-xl flex-col items-center px-5 pb-16 pt-24">
+  <section class="mx-auto flex min-h-svh max-w-xl flex-col items-center px-5 pb-16 pt-24">
 
     <h1 class="font-script text-5xl text-amber-50 drop-shadow-lg">Contacto</h1>
     <p class="mt-2 text-center font-serif text-sm italic text-amber-100/90">
@@ -13,7 +17,7 @@ import Navbar from '../components/Navbar.vue';
     <form
       class="mt-8 flex w-full flex-col gap-5 rounded-lg border border-white/25 bg-white/10 p-6
              shadow-xl backdrop-blur-md"
-      @submit.prevent
+      @submit.prevent="enviarFormulario"
     >
  
       <label class="flex flex-col gap-1">
@@ -97,5 +101,5 @@ import Navbar from '../components/Navbar.vue';
       </button>
     </form>
 
-  </main>
+  </section>
 </template>

@@ -5,6 +5,7 @@ import { useRoute, useRouter } from "vue-router";
 import Filtros from "@/components/Filtros.vue";
 import Tarjeta from "@/components/Tarjeta.vue";
 import Buscador from "@/components/Buscador.vue";
+import Loader from '@/components/Loader.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -12,7 +13,7 @@ const router = useRouter();
 const obras = ref([]);
 const current = ref(1);
 const total = ref(1);
-const loading = ref(false);
+const cargando = ref(false);
 
 const paginas = computed(() => {
   const maxPaginas = 4;
@@ -30,7 +31,7 @@ const paginas = computed(() => {
 });
 
 async function cargarObras() {
-  loading.value = true;
+  cargando.value = true;
 
   try {
     const page = Number(route.query.page) || 1;
@@ -58,7 +59,7 @@ async function cargarObras() {
     console.error("Error al cargar las obras:", error);
     obras.value = [];
   } finally {
-    loading.value = false;
+    cargando.value = false;
   }
 }
 
@@ -94,9 +95,7 @@ watch(
   <Buscador />
   <Filtros />
 
-  <section v-if="loading" class="py-10 text-center text-white">
-    Cargando obras...
-  </section>
+  <Loader v-if="cargando"/>
 
   <section v-else class="container mx-auto px-2 py-2 ">
     <div class="container mx-auto px-2 py-2 columns-2 gap-x-5 px-3 sm:px-5 py-5 md:columns-3 lg:columns-4 overflow-visible">

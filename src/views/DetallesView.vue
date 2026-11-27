@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { getArtwork } from '@/services/artic'
 import { imageUrl } from '@/services/artic'
 import { useFavs } from '@/composable/useFavorites'
+import Loader from '@/components/Loader.vue'
 
 const { cargarFavs, esFavs, agregarFavs } = useFavs()
 cargarFavs()
@@ -11,7 +12,7 @@ cargarFavs()
 const descAbierta = ref(false)
 const route = useRoute()
 const obra = ref(null)
-const loading = ref(true)
+const cargando = ref(true)
 
 getArtwork(route.params.id)
     .then(res => {
@@ -21,14 +22,14 @@ getArtwork(route.params.id)
         console.log(err)
     })
     .finally(() => {
-        loading.value = false
+        cargando.value = false
     })
 </script>
 
 <template>
 
     <div class="min-h-svh px-5 pb-16 pt-24">
-        <div v-if="!loading">
+        <div v-if="!cargando">
 
             <div v-if="obra" class="mx-auto max-w-6xl">
 
@@ -42,8 +43,7 @@ getArtwork(route.params.id)
 
                     <!-- Obra -->
                     <div class="flex items-center justify-center lg:sticky lg:top-24">
-                        <div
-                            class="marco-dorado [--grosor:8px] sm:[--grosor:12px]">
+                        <div class="marco-dorado [--grosor:8px] sm:[--grosor:12px]">
                             <img v-if="obra.image_id" :src="imageUrl(obra.image_id, 843)" :alt="obra.title"
                                 referrerpolicy="no-referrer"
                                 class="block max-h-[65vh] w-auto max-w-full object-contain shadow-inner" />
@@ -77,31 +77,26 @@ getArtwork(route.params.id)
                             {{ obra.medium_display }}
                         </p>
 
-                        
-                    <div class="mt-4 border-t border-[#c9a45c]/30 pt-4">
 
-  <div v-if="obra.description">
-    <div
-      v-html="obra.description"
-      :class="descAbierta ? '' : 'line-clamp-5 [&_p]:inline'"
-      class="font-serif text-xs uppercase leading-relaxed text-amber-100/70 [&_a]:underline"
-    ></div>
+                        <div class="mt-4 border-t border-[#c9a45c]/30 pt-4">
 
-    <button
-      v-if="obra.description.length > 250"
-      type="button"
-      @click="descAbierta = !descAbierta"
-      class="mt-3 cursor-pointer font-serif text-[11px] uppercase tracking-widest text-[#c9a45c] transition hover:text-[#e6c982]"
-    >
-      {{ descAbierta ? 'Ver menos ▲' : 'Ver más ▼' }}
-    </button>
-  </div>
+                            <div v-if="obra.description">
+                                <div v-html="obra.description" :class="descAbierta ? '' : 'line-clamp-5 [&_p]:inline'"
+                                    class="font-serif text-xs uppercase leading-relaxed text-amber-100/70 [&_a]:underline">
+                                </div>
 
-  <p v-else class="font-serif text-sm italic text-amber-100/60">
-    Esta obra no tiene descripción disponible.
-  </p>
+                                <button v-if="obra.description.length > 250" type="button"
+                                    @click="descAbierta = !descAbierta"
+                                    class="mt-3 cursor-pointer font-serif text-[11px] uppercase tracking-widest text-[#c9a45c] transition hover:text-[#e6c982]">
+                                    {{ descAbierta ? 'Ver menos ▲' : 'Ver más ▼' }}
+                                </button>
+                            </div>
 
-</div>
+                            <p v-else class="font-serif text-sm italic text-amber-100/60">
+                                Esta obra no tiene descripción disponible.
+                            </p>
+
+                        </div>
                         <div class="mt-6 flex flex-wrap gap-3">
                             <RouterLink to="/contact" class="rounded-full border border-white/70 bg-white px-6 py-2.5 font-serif text-xs
                        uppercase  text-black transition duration-300
@@ -131,16 +126,8 @@ getArtwork(route.params.id)
 
         </div>
 
-        <!-- loading -->
-        <div v-else class="flex justify-center py-16">
-            <svg class="size-8 animate-spin text-amber-100" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-            </svg>
-        </div>
+        <!-- cargando -->
+        <Loader v-if="cargando" />
     </div>
 
 </template>

@@ -1,12 +1,8 @@
 <script setup>
-import Navbar from '../components/Navbar.vue'
-import Footer from '../components/Footer.vue'
 </script>
 
 <template>
-
-
-  <main class="flex min-h-svh flex-col items-center justify-center px-6 pb-10 pt-24 text-center">
+  <section class="flex min-h-svh flex-col items-center justify-center px-6 pb-10 pt-24 text-center">
     <p class="font-serif text-xs uppercase tracking-[0.3em] text-[#c9a45c]">Error 404</p>
 
     <h1 class="mt-3 font-script text-6xl leading-none text-amber-50 drop-shadow-lg md:text-8xl">
@@ -38,11 +34,11 @@ import Footer from '../components/Footer.vue'
 
    
     <img
-      src=""
+      src="../../public/"
       alt="Oreja"
       class="mt-10 h-auto w-48 object-contain drop-shadow-2xl md:w-64"
     />
-  </main>
+  </section>
 
 
 </template>
